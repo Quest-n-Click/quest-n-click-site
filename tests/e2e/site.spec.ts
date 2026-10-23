@@ -1,0 +1,54 @@
+import { expect, test } from "@playwright/test";
+
+test("the home page, in English and in French", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("point-and-click");
+  await expect(page.getByRole("link", { name: /Play the demo/ })).toBeVisible();
+  await page.goto("/fr");
+  await expect(page.locator("html")).toHaveAttribute("lang", "fr");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("point-and-click");
+});
+
+test("/en redirects to the root", async ({ page }) => {
+  const res = await page.goto("/en/play");
+  expect(res?.url()).toMatch(/\/play$/);
+});
+
+test("the play page shows the game behind a still", async ({ page }) => {
+  await page.goto("/play");
+  await expect(page.getByRole("heading", { level: 1, name: /Play/ })).toBeVisible();
+  await page.getByRole("button", { name: /Press play/ }).first().click();
+  await expect(page.locator("iframe[title='The Pantry Key']")).toHaveAttribute("src", /wanoo\.github\.io\/quest-n-click\/\?lang=en/);
+});
+
+test("a docs page renders the wiki's markers", async ({ page }) => {
+  await page.goto("/docs/bridge.guarantees");
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  await expect(page.locator("[data-claim='guarantee']").first()).toBeVisible();
+  await expect(page.locator("[data-docs-version]")).toHaveText(/\d+\.\d+\.\d+/);
+  await page.goto("/docs/create.rooms");
+  await expect(page.locator("pre.shiki").first()).toBeVisible();
+  const twin = page.getByRole("link", { name: "Cette page en français" });
+  await expect(twin).toHaveAttribute("href", "/fr/docs/create.rooms");
+  await twin.click();
+  await expect(page.locator("html")).toHaveAttribute("lang", "fr");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Salles");
+});
+
+test("the docs search finds a page", async ({ page }) => {
+  await page.goto("/docs");
+  await page.locator("[data-search-button]:visible").first().click();
+  await page.getByPlaceholder("Search the documentation").fill("solver");
+  const hit = page.getByRole("option", { name: /solver/i }).first();
+  await expect(hit).toBeVisible();
+  await hit.click();
+  await expect(page).toHaveURL(/\/docs\/create\.solver/);
+});
+
+test("the changelog shows the latest version first", async ({ page }) => {
+  await page.goto("/changelog");
+  const first = page.locator("h2[data-version]").first();
+  await expect(first).toHaveText(/^\d+\.\d+\.\d+/);
+  await expect(page.getByText("latest", { exact: true })).toBeVisible();
+});

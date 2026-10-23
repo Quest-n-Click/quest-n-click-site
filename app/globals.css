@@ -1,0 +1,316 @@
+@import "tailwindcss";
+
+/* Tokens. The palette is the logo's: the orange of "quest", the cyan of "click", the night of the game's backdrop. */
+:root {
+  --paper: #f5f7fc;
+  --paper-2: #ffffff;
+  --paper-3: #e9edf7;
+  --ink: #141a2e;
+  --ink-2: #4a5272;
+  --ink-3: #8089a8;
+  --line: #cfd6e8;
+  --sun: #f08a1d;
+  --sun-deep: #c96a05;
+  --sky: #1fa8e0;
+  --sky-deep: #157fab;
+  --grass: #3fa65b;
+  --rose: #e8557a;
+  --lilac: #8d6bdc;
+  --code-bg: #0f1326;
+  --shadow: var(--ink);
+  --radius: 6px;
+  color-scheme: light;
+}
+
+:root:not([data-theme="light"]) {
+  @media (prefers-color-scheme: dark) {
+    --paper: #0d1022;
+    --paper-2: #141a33;
+    --paper-3: #1b2240;
+    --ink: #eaeefb;
+    --ink-2: #b4bcd8;
+    --ink-3: #7e88ab;
+    --line: #2b3458;
+    --sun: #ffa23a;
+    --sun-deep: #f08a1d;
+    --sky: #4cc2f5;
+    --sky-deep: #1fa8e0;
+    --grass: #5fc77a;
+    --code-bg: #090b18;
+    --shadow: #000000;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0d1022;
+  --paper-2: #141a33;
+  --paper-3: #1b2240;
+  --ink: #eaeefb;
+  --ink-2: #b4bcd8;
+  --ink-3: #7e88ab;
+  --line: #2b3458;
+  --sun: #ffa23a;
+  --sun-deep: #f08a1d;
+  --sky: #4cc2f5;
+  --sky-deep: #1fa8e0;
+  --grass: #5fc77a;
+  --code-bg: #090b18;
+  --shadow: #000000;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-paper-3: var(--paper-3);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-sun: var(--sun);
+  --color-sun-deep: var(--sun-deep);
+  --color-sky: var(--sky);
+  --color-sky-deep: var(--sky-deep);
+  --color-grass: var(--grass);
+  --color-rose: var(--rose);
+  --color-lilac: var(--lilac);
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-pixel: var(--font-pixel), monospace;
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 5rem;
+}
+body {
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.55;
+  overflow-x: clip;
+}
+::selection {
+  background: var(--sun);
+  color: #140a00;
+}
+:focus-visible {
+  outline: 3px solid var(--sky);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* The site's one visual signature: a hard, unblurred offset shadow, as a sprite drops on a backdrop. */
+.hard {
+  border: 2px solid var(--ink);
+  box-shadow: 6px 6px 0 0 var(--shadow);
+}
+.hard-sun {
+  border: 2px solid var(--ink);
+  box-shadow: 6px 6px 0 0 var(--sun);
+}
+.hard-sky {
+  border: 2px solid var(--ink);
+  box-shadow: 6px 6px 0 0 var(--sky);
+}
+.pixel {
+  font-family: var(--font-pixel), monospace;
+  font-size: 0.6875rem;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  image-rendering: pixelated;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.1rem;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  font-weight: 600;
+  background: var(--paper-2);
+  color: var(--ink);
+  box-shadow: 4px 4px 0 0 var(--shadow);
+  transition: transform 80ms ease, box-shadow 80ms ease;
+}
+.btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 0 var(--shadow);
+}
+.btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 0 var(--shadow);
+}
+.btn-sun {
+  background: var(--sun);
+  color: #140a00;
+  border-color: #140a00;
+}
+.btn-sky {
+  background: var(--sky);
+  color: #04131c;
+  border-color: #04131c;
+}
+.container-site {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+@media (min-width: 640px) {
+  .container-site {
+    padding-inline: 1.5rem;
+  }
+}
+.prose-site {
+  max-width: 72ch;
+}
+
+/* Documentation pages: rendered from the wiki's Markdown. */
+.doc {
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+.doc > * + * {
+  margin-top: 1rem;
+}
+.doc h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-top: 2.75rem;
+  padding-top: 0.75rem;
+  border-top: 2px solid var(--line);
+  scroll-margin-top: 5rem;
+}
+.doc h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  scroll-margin-top: 5rem;
+}
+.doc h4 {
+  font-weight: 700;
+  margin-top: 1.5rem;
+}
+.doc a {
+  color: var(--sky-deep);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+.doc a:hover {
+  color: var(--sun-deep);
+}
+.doc ul {
+  list-style: square;
+  padding-left: 1.4rem;
+}
+.doc ol {
+  list-style: decimal;
+  padding-left: 1.6rem;
+}
+.doc li + li {
+  margin-top: 0.35rem;
+}
+.doc li > ul,
+.doc li > ol {
+  margin-top: 0.35rem;
+}
+.doc code {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.88em;
+  background: var(--paper-3);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+.doc pre {
+  background: var(--code-bg);
+  color: #e6e9f2;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  box-shadow: 4px 4px 0 0 var(--shadow);
+}
+.doc pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+}
+.doc pre.shiki,
+.doc pre.shiki span {
+  /* Shiki writes light-dark() colours; the block is always dark, so force the dark theme. */
+  color: var(--shiki-dark, inherit) !important;
+  background-color: var(--code-bg) !important;
+}
+.doc blockquote {
+  border-left: 4px solid var(--line);
+  padding-left: 1rem;
+  color: var(--ink-2);
+}
+.doc table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+.doc th,
+.doc td {
+  border: 1px solid var(--line);
+  padding: 0.45rem 0.7rem;
+  vertical-align: top;
+  text-align: left;
+}
+.doc th {
+  background: var(--paper-3);
+  font-weight: 600;
+}
+.doc img {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid var(--ink);
+  box-shadow: 6px 6px 0 0 var(--shadow);
+  margin-top: 1.5rem;
+}
+.doc img + em,
+.doc p > img + em {
+  display: block;
+  margin-top: 0.75rem;
+  color: var(--ink-2);
+  font-size: 0.95rem;
+}
+.doc hr {
+  border: 0;
+  border-top: 2px solid var(--line);
+  margin-block: 2rem;
+}
+.doc details {
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.5rem 1rem;
+}
+.doc summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.doc kbd {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.85em;
+  border: 1px solid var(--line);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  padding: 0 0.3em;
+}
