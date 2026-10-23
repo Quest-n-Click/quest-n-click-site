@@ -240,7 +240,11 @@ export function groupByDomain(order: PageMeta[], lang: Locale): { domain: string
     list.push(p);
     groups.set(p.domain, list);
   }
-  return [...groups].map(([domain, pages]) => ({ domain, pages }));
+  // Within a domain: tutorials first, then by title in the reader's language.
+  return [...groups].map(([domain, pages]) => ({
+    domain,
+    pages: [...pages].sort((a, b) => typeRank(a.type) - typeRank(b.type) || a.title[lang].localeCompare(b.title[lang], lang)),
+  }));
 }
 
 export function pageExists(store: DocsStore, lang: Locale, id: string): boolean {
