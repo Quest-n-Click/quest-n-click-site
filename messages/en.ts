@@ -1,6 +1,6 @@
 export const en = {
   locale: "en",
-  siteName: "quest'n'click",
+  siteName: "Quest'n'Click",
   tagline: "Open source point & click engine",
   nav: {
     home: "Home",
@@ -19,7 +19,7 @@ export const en = {
   footer: {
     formerly: "Formerly web-scumm. Not affiliated with LucasArts; SCUMM is their engine, this one follows its spirit.",
     license: "Engine: MIT · Art and sound of the demo: CC BY 4.0",
-    made: "Illustrations and screenshots from the quest'n'click project. A site built with Next.js, hosted on Clever Cloud.",
+    made: "Illustrations and screenshots from the Quest'n'Click project. A site built with Next.js, hosted on Clever Cloud.",
     sourceSite: "Site source",
   },
   home: {
@@ -123,7 +123,7 @@ export const en = {
     search: "Search the documentation",
     searchHint: "Press ⌘K or Ctrl+K",
     noResults: "No page matches",
-    builtFor: "quest'n'click",
+    builtFor: "Quest'n'Click",
     revision: "docs revision",
     onThisPage: "On this page",
     related: "Related pages",

@@ -1,6 +1,6 @@
 # quest-n-click-site
 
-The showcase website of [quest'n'click](https://github.com/wanoo/quest-n-click), the open-source point-and-click
+The showcase website of [Quest'n'Click](https://github.com/Quest-n-Click/quest-n-click), the open-source point-and-click
 engine for the browser: what it does, the demos to play, the changelog and the whole documentation, in English and
 in French. Live at [quest-n-click.cleverapps.io](https://quest-n-click.cleverapps.io).
 

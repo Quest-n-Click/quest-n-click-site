@@ -52,7 +52,7 @@ test("the play page shows the game behind a still", async ({ page }) => {
   await page.goto("/play");
   await expect(page.getByRole("heading", { level: 1, name: /Play/ })).toBeVisible();
   await page.getByRole("button", { name: /Press play/ }).first().click();
-  await expect(page.locator("iframe[title='The Pantry Key']")).toHaveAttribute("src", /wanoo\.github\.io\/quest-n-click\/\?lang=en/);
+  await expect(page.locator("iframe[title='The Pantry Key']")).toHaveAttribute("src", /quest-n-click\.github\.io\/play\/\?lang=en/);
 });
 
 test("a docs page renders the wiki's markers", async ({ page }) => {

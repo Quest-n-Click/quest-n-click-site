@@ -9,7 +9,7 @@ export function Footer({ locale }: { locale: Locale }) {
     <footer className="mt-20 border-t border-line">
       <div className="container-site grid gap-8 py-10 sm:grid-cols-[1fr_auto] sm:items-start">
         <div>
-          <Image src="/brand/wordmark.png" alt="quest'n'click" width={1084} height={285} className="h-9 w-auto" sizes="200px" />
+          <Image src="/brand/wordmark.png" alt="Quest'n'Click" width={1084} height={285} className="h-9 w-auto" sizes="200px" />
           <p className="mt-3 text-sm text-ink-3">{t.footer.license}</p>
           <p className="mt-1 max-w-[60ch] text-sm text-ink-3">{t.footer.formerly}</p>
           <p className="mt-1 text-sm text-ink-3">{t.footer.made}</p>
@@ -20,7 +20,7 @@ export function Footer({ locale }: { locale: Locale }) {
           <Link className="hover:text-ink" href={href(locale, "/changelog")}>{t.nav.changelog}</Link>
           <a className="hover:text-ink" href={ENGINE_REPO_URL} rel="noopener">{t.nav.github} ↗</a>
           <a className="hover:text-ink" href={ENGINE_WIKI_URL} rel="noopener">{t.nav.wiki} ↗</a>
-          <a className="hover:text-ink" href="https://github.com/wanoo/quest-n-click-site" rel="noopener">{t.footer.sourceSite} ↗</a>
+          <a className="hover:text-ink" href="https://github.com/Quest-n-Click/quest-n-click-site" rel="noopener">{t.footer.sourceSite} ↗</a>
         </nav>
       </div>
     </footer>

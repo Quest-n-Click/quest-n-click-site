@@ -2,7 +2,7 @@ import type { Messages } from "./en";
 
 export const fr: Messages = {
   locale: "fr",
-  siteName: "quest'n'click",
+  siteName: "Quest'n'Click",
   tagline: "Moteur de point & click open source",
   nav: {
     home: "Accueil",
@@ -21,7 +21,7 @@ export const fr: Messages = {
   footer: {
     formerly: "Anciennement web-scumm. Sans lien avec LucasArts : SCUMM est leur moteur, celui-ci en suit l'esprit.",
     license: "Moteur : MIT · Images et sons de la démo : CC BY 4.0",
-    made: "Illustrations et captures du projet quest'n'click. Un site fait avec Next.js, hébergé sur Clever Cloud.",
+    made: "Illustrations et captures du projet Quest'n'Click. Un site fait avec Next.js, hébergé sur Clever Cloud.",
     sourceSite: "Source du site",
   },
   home: {
@@ -125,7 +125,7 @@ export const fr: Messages = {
     search: "Chercher dans la documentation",
     searchHint: "⌘K ou Ctrl+K",
     noResults: "Aucune page ne correspond",
-    builtFor: "quest'n'click",
+    builtFor: "Quest'n'Click",
     revision: "révision des docs",
     onThisPage: "Sur cette page",
     related: "Pages liées",
