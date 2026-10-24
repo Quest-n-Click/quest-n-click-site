@@ -1,8 +1,9 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { useRef, useState } from "react";
 import type { Locale } from "@/lib/i18n";
 import { messages } from "@/messages";
+import { ImageDialog, type DialogShot } from "./ImageDialog";
 
 export interface GalleryShot {
   src: string;
@@ -13,18 +14,11 @@ export interface GalleryShot {
   alt: string;
 }
 
-/** Three screenshots with a title and a line each; one opens large in a dialog that gives the focus back on close. */
+/** Three screenshots with a title and a line each; one opens large, and the focus comes back to its button. */
 export function Gallery({ shots, locale }: { shots: GalleryShot[]; locale: Locale }) {
   const t = messages[locale].home;
-  const [open, setOpen] = useState<GalleryShot | null>(null);
+  const [open, setOpen] = useState<DialogShot | null>(null);
   const trigger = useRef<HTMLElement | null>(null);
-  const dialog = useRef<HTMLDialogElement>(null);
-  useEffect(() => {
-    const d = dialog.current;
-    if (!d) return;
-    if (open && !d.open) d.showModal();
-    if (!open && d.open) d.close();
-  }, [open]);
   const close = () => {
     setOpen(null);
     trigger.current?.focus();
@@ -55,29 +49,7 @@ export function Gallery({ shots, locale }: { shots: GalleryShot[]; locale: Local
           </li>
         ))}
       </ul>
-      <dialog
-        ref={dialog}
-        aria-label={open?.title}
-        onClose={close}
-        onClick={(e) => {
-          if (e.target === dialog.current) close();
-        }}
-        className="m-auto w-[min(1100px,calc(100%-2rem))] rounded-[6px] border border-line bg-paper-2 p-0 text-ink backdrop:bg-[#080b15]/90"
-      >
-        {open ? (
-          <figure>
-            <div className="flex items-center justify-between gap-4 px-4 py-3">
-              <figcaption className="font-medium">
-                {open.title} <span className="text-ink-2">· {open.text}</span>
-              </figcaption>
-              <button type="button" onClick={close} className="btn min-h-0 px-3 py-1.5" aria-label={t.close}>
-                ✕
-              </button>
-            </div>
-            <Image src={open.src} alt={open.alt} width={open.w} height={open.h} sizes="100vw" className="max-h-[78vh] w-full object-contain bg-[#070b12]" />
-          </figure>
-        ) : null}
-      </dialog>
+      <ImageDialog shot={open} onClose={close} closeLabel={t.close} />
     </>
   );
 }

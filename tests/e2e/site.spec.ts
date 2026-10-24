@@ -3,20 +3,27 @@ import { expect, test } from "@playwright/test";
 test("the home page, in English and in French", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("point & click");
-  await expect(page.getByRole("link", { name: /Play the demo/ })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("first small game");
+  await expect(page.getByRole("link", { name: /first-room guide/ })).toHaveAttribute("href", "/docs/create.first-game");
+  await expect(page.getByRole("link", { name: /Play an example/ })).toBeVisible();
   await expect(page.getByRole("img", { name: /Pantry Key/ })).toBeVisible();
+  await expect(page.locator("[data-latest]")).toHaveAttribute("data-latest", /\d+\.\d+\.\d+/);
   await page.goto("/fr");
   await expect(page.locator("html")).toHaveAttribute("lang", "fr");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("point & click");
-  await expect(page.getByRole("link", { name: /Jouer à la démo/ })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("premier petit jeu");
+  await expect(page.getByRole("link", { name: /Jouer à un exemple/ })).toBeVisible();
 });
 
 test("the home sections: Studio steps, assistant examples, the technical details", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("tab", { name: /Check your puzzles/ }).click();
-  await expect(page.getByRole("tab", { name: /Check your puzzles/ })).toHaveAttribute("aria-selected", "true");
-  await expect(page.getByRole("img", { name: /validator and the solver/ })).toBeVisible();
+  await page.getByRole("tab", { name: /Test your puzzle/ }).click();
+  await expect(page.getByRole("tab", { name: /Test your puzzle/ })).toHaveAttribute("aria-selected", "true");
+  await expect(page.getByRole("img", { name: /winning path/ })).toBeVisible();
+  await page.getByRole("button", { name: /See the whole screen/ }).click();
+  await expect(page.getByRole("dialog")).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("dialog")).toBeHidden();
+  await expect(page.locator("[data-ai-flow]")).toContainText("Someday I will check");
   await page.getByRole("tab", { name: "Puzzles", exact: true }).click();
   await expect(page.getByText(/Suggest a puzzle in the garden/)).toBeVisible();
   await page.getByText("And the technical side?").click();
@@ -32,8 +39,8 @@ test("the menu on a phone-sized screen", async ({ page, isMobile }) => {
   test.skip(!isMobile, "the menu button shows on small screens only");
   await page.goto("/docs");
   await page.getByRole("button", { name: /Open the menu/ }).click();
-  await page.getByRole("navigation", { name: "Menu" }).getByRole("link", { name: "Changelog" }).click();
-  await expect(page).toHaveURL(/\/changelog$/);
+  await page.getByRole("navigation", { name: "Menu" }).getByRole("link", { name: "Play" }).click();
+  await expect(page).toHaveURL(/\/play$/);
 });
 
 test("/en redirects to the root", async ({ page }) => {

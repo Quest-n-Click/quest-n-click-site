@@ -24,10 +24,23 @@ export const GALLERY = {
     { src: "/gallery/4119-player-scene.webp", w: 1440, h: 665, alt: { en: "A conversation with Grandma and her topics", fr: "Une conversation avec Mamie et ses sujets" } },
     { src: "/gallery/4119-player-minigame.webp", w: 1440, h: 665, alt: { en: "The pipes minigame, by touch or keyboard", fr: "Le minijeu des tuyaux, au toucher ou au clavier" } },
   ] satisfies Shot[],
+  /** Each step shows one focused region (cut from the screenshot), and the whole screen on demand. */
   studio: {
-    storyboard: { src: "/gallery/4119-studio-storyboard.webp", alt: { en: "The Studio: the story organised in panels in the storyboard", fr: "Le Studio : l'histoire organisée en cases dans le storyboard" } },
-    rooms: { src: "/gallery/4119-studio-rooms.webp", alt: { en: "The Studio: placing props and characters in a room", fr: "Le Studio : placement des objets et des personnages dans une salle" } },
-    check: { src: "/gallery/4119-studio-check.webp", alt: { en: "The Studio: the validator and the solver's path", fr: "Le Studio : le validateur et le chemin du solveur" } },
+    storyboard: {
+      focus: { src: "/gallery/4119-studio-storyboard-focus.webp", w: 740, h: 493 },
+      full: { src: "/gallery/4119-studio-storyboard.webp", w: 1440, h: 900 },
+      alt: { en: "The Studio's storyboard: the opening panel and Grandma's lines, one field each", fr: "Le storyboard du Studio : la case d'ouverture et les répliques de Mamie, un champ chacune" },
+    },
+    rooms: {
+      focus: { src: "/gallery/4119-studio-rooms-focus.webp", w: 440, h: 293 },
+      full: { src: "/gallery/4119-studio-rooms.webp", w: 1440, h: 900 },
+      alt: { en: "The Studio's Rooms tab: the pantry's look lines and its first reaction", fr: "L'onglet Salles du Studio : les lignes « regarder » du garde-manger et sa première réaction" },
+    },
+    check: {
+      focus: { src: "/gallery/4119-studio-check-focus.webp", w: 700, h: 467 },
+      full: { src: "/gallery/4119-studio-check.webp", w: 1440, h: 900 },
+      alt: { en: "The Studio's Check tab: the solver's winning path, fifteen actions", fr: "L'onglet Vérification du Studio : le chemin gagnant du solveur, quinze actions" },
+    },
   },
   assistant: { src: "/gallery/studio-assistant.jpg", w: 1000, h: 614 },
 };

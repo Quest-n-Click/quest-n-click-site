@@ -14,15 +14,10 @@ export function SiteNav({ locale }: { locale: Locale }) {
   const button = useRef<HTMLButtonElement>(null);
   const home = href(locale, "/");
   const onHome = pathname === home || pathname === `${home}/`;
-  const anchors: [string, string][] = [
-    [`${onHome ? "" : home}#discover`, t.nav.discover],
-    [`${onHome ? "" : home}#studio`, t.nav.studio],
-    [`${onHome ? "" : home}#assistant`, t.nav.ai],
-  ];
+  const anchors: [string, string][] = [[`${onHome ? "" : home}#studio`, t.nav.create]];
   const pages: [string, string][] = [
     [href(locale, "/play"), t.nav.play],
     [href(locale, "/docs"), t.nav.docs],
-    [href(locale, "/changelog"), t.nav.changelog],
   ];
   useEffect(() => {
     if (!open) return;
@@ -50,7 +45,6 @@ export function SiteNav({ locale }: { locale: Locale }) {
     <>
       <nav aria-label="Main" className="ml-auto hidden items-center gap-1 lg:flex">
         {anchors.map(([to, label]) => item(to, label, false))}
-        <span aria-hidden className="mx-1 h-5 w-px bg-line" />
         {pages.map(([to, label]) => item(to, label, pathname === to || pathname.startsWith(`${to}/`)))}
         <a href={ENGINE_REPO_URL} rel="noopener" className="ml-1 rounded-[4px] border border-line px-3 py-1.5 text-[0.9rem] text-ink-2 hover:border-sun hover:text-ink">
           {t.nav.github} ↗
