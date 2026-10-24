@@ -1,6 +1,6 @@
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
-import { NextResponse } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import { getDemo } from "@/lib/demo/store";
 
 export const dynamic = "force-dynamic";
@@ -33,8 +33,11 @@ const TYPES: Record<string, string> = {
 const HASHED = /-[A-Za-z0-9_-]{8}\.[a-z0-9]+$/;
 
 /** The sample game and the Studio demo, served from the engine release's web archive (lib/demo/store.ts). */
-export async function GET(_req: Request, { params }: { params: Promise<{ path?: string[] }> }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ path?: string[] }> }) {
   const parts = (await params).path ?? [];
+  // /demo without its slash: the game's service worker is scoped to /demo/, so send it there.
+  if (req.nextUrl.pathname === "/demo")
+    return NextResponse.redirect(new URL(`/demo/${req.nextUrl.search}`, req.nextUrl.origin), 308);
   if (parts.some((p) => p === ".." || p === "." || p === "" || p.includes("\\") || p.startsWith(".")))
     return new NextResponse("bad path", { status: 400 });
   let demo;

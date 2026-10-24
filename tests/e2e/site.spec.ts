@@ -110,3 +110,13 @@ test("the demo and the Studio demo are served under /demo/", async ({ page, requ
   await page.goto("/demo/");
   await expect(page.locator("canvas, #app, main").first()).toBeVisible();
 });
+
+test("/demo keeps its trailing slash (the service worker's scope), the pages lose theirs", async ({ request }) => {
+  const bare = await request.get("/demo", { maxRedirects: 0 });
+  expect(bare.status()).toBe(308);
+  expect(bare.headers()["location"]).toMatch(/\/demo\/$/);
+  expect((await request.get("/demo/", { maxRedirects: 0 })).status()).not.toBe(308);
+  const page = await request.get("/docs/", { maxRedirects: 0 });
+  expect(page.status()).toBe(308);
+  expect(page.headers()["location"]).toMatch(/\/docs$/);
+});

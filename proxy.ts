@@ -9,6 +9,12 @@ const STATIC = /\.(png|jpe?g|webp|gif|svg|ico|txt|xml|json|js|css|map|woff2?|ttf
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  // next.config.ts skips Next's own trailing-slash redirect for /demo/; the pages keep theirs here.
+  if (pathname.length > 1 && pathname.endsWith("/")) {
+    // A plain URL on the public origin: a cloned NextURL would put the slash back when serialised.
+    const to = new URL((pathname.replace(/\/+$/, "") || "/") + request.nextUrl.search, request.nextUrl.origin);
+    return NextResponse.redirect(to, 308);
+  }
   if (STATIC.test(pathname)) return NextResponse.next();
   if (pathname === "/en" || pathname.startsWith("/en/")) {
     const url = request.nextUrl.clone();
