@@ -95,7 +95,7 @@ export function SearchPalette({ locale }: { locale: Locale }) {
       <Command
         label={t.search}
         shouldFilter={false}
-        className="hard w-full max-w-xl rounded-[6px] bg-paper-2"
+        className="frame w-full max-w-xl shadow-[6px_6px_0_var(--shadow)]"
         onClick={(e) => e.stopPropagation()}
         onKeyDown={(e) => e.key === "Escape" && setOpen(false)}
       >

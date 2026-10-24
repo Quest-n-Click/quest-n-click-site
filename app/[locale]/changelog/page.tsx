@@ -60,9 +60,9 @@ export default async function ChangelogPage({
                     <h2 id={`${v.anchor}-h`} className="text-3xl font-bold tabular-nums" data-version={v.version}>
                       {v.version}
                     </h2>
-                    {i === 0 && latest ? <span className="pixel rounded-[4px] bg-sun px-2 py-1 text-[0.55rem] text-[#140a00]">{t.latest}</span> : null}
+                    {i === 0 && latest ? <span className="pixel rounded-[4px] bg-sun px-2 py-1 text-[0.55rem] text-sun-ink">{t.latest}</span> : null}
                     {v.date ? <span className="text-ink-2">{fmt.format(new Date(`${v.date}T12:00:00Z`))}</span> : null}
-                    {rel ? <a href={rel.html_url} className="text-sm text-sky-deep underline underline-offset-4" rel="noopener">{t.release}</a> : null}
+                    {rel ? <a href={rel.html_url} className="text-sm text-sun underline underline-offset-4" rel="noopener">{t.release}</a> : null}
                   </div>
                   <div className="doc mt-4">
                     {v.intro ? <Hast tree={v.intro} locale={lang} /> : null}
