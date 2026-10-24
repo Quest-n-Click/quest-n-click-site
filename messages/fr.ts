@@ -104,7 +104,7 @@ export const fr: Messages = {
   },
   play: {
     title: "Jouer aux démos",
-    lead: "Le jeu d'exemple et le Studio, tels qu'ils sont publiés sur GitHub Pages. Ils se chargent quand vous appuyez sur lecture.",
+    lead: "Le jeu d'exemple et le Studio, tels que la dernière release du moteur les construit. Ils se chargent quand vous appuyez sur lecture.",
     game: {
       title: "The Pantry Key",
       text: "Une petite aventure en point-and-click : Pixel le chat veut les sardines. Neuf verbes, un sac, les sujets de Mamie, une carte du monde, des minijeux et une fin qui se souvient de ce que vous avez deviné.",

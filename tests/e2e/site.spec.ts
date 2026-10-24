@@ -63,7 +63,7 @@ test("the play page shows the game behind a still", async ({ page }) => {
   await page.goto("/play");
   await expect(page.getByRole("heading", { level: 1, name: /Play/ })).toBeVisible();
   await page.getByRole("button", { name: /Press play/ }).first().click();
-  await expect(page.locator("iframe[title='The Pantry Key']")).toHaveAttribute("src", /quest-n-click\.github\.io\/play\/\?lang=en/);
+  await expect(page.locator("iframe[title='The Pantry Key']")).toHaveAttribute("src", /^\/demo\/\?lang=en$/);
 });
 
 test("a docs page renders the wiki's markers", async ({ page }) => {
@@ -95,4 +95,18 @@ test("the changelog shows the latest version first", async ({ page }) => {
   const first = page.locator("h2[data-version]").first();
   await expect(first).toHaveText(/^\d+\.\d+\.\d+/);
   await expect(page.getByText("latest", { exact: true })).toBeVisible();
+});
+
+// The demo is the engine release's web archive, served by the site (lib/demo/store.ts). CI gives it a local folder
+// (QNC_DEMO_SOURCE) when one is at hand; without it there is nothing to play yet.
+test("the demo and the Studio demo are served under /demo/", async ({ page, request }) => {
+  test.skip(!process.env.QNC_DEMO_SOURCE, "no demo folder given (QNC_DEMO_SOURCE)");
+  const game = await request.get("/demo/");
+  expect(game.status()).toBe(200);
+  expect(game.headers()["content-type"]).toContain("text/html");
+  expect((await request.get("/demo/studio.html")).status()).toBe(200);
+  expect((await request.get("/demo/sw.js")).headers()["content-type"]).toContain("javascript");
+  expect((await request.get("/demo/../package.json")).status()).not.toBe(200);
+  await page.goto("/demo/");
+  await expect(page.locator("canvas, #app, main").first()).toBeVisible();
 });
