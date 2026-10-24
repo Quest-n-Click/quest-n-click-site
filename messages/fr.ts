@@ -17,6 +17,7 @@ export const fr: Messages = {
     closeMenu: "Fermer le menu",
   },
   switchLang: "English",
+  theme: { toLight: "Passer au thème clair", toDark: "Passer au thème sombre" },
   skip: "Aller au contenu",
   footer: {
     formerly: "Anciennement web-scumm. Sans lien avec LucasArts : SCUMM est leur moteur, celui-ci en suit l'esprit.",

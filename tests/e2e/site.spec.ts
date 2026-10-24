@@ -43,6 +43,17 @@ test("the menu on a phone-sized screen", async ({ page, isMobile }) => {
   await expect(page).toHaveURL(/\/play$/);
 });
 
+test("the theme toggle keeps the visitor's choice", async ({ page }) => {
+  await page.emulateMedia({ colorScheme: "dark" });
+  await page.goto("/");
+  await page.locator("[data-theme-toggle]:visible").first().click();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+  await page.reload();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+  await page.locator("[data-theme-toggle]:visible").first().click();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+});
+
 test("/en redirects to the root", async ({ page }) => {
   const res = await page.goto("/en/play");
   expect(res?.url()).toMatch(/\/play$/);
