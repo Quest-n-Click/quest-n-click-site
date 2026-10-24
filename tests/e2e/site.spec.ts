@@ -54,6 +54,24 @@ test("the theme toggle keeps the visitor's choice", async ({ page }) => {
   await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
 });
 
+test("the demo is served at /demo/ from the release's web archive", async ({ request }) => {
+  const root = await request.get("/demo/");
+  expect(root.status()).toBe(200);
+  expect(await root.text()).toContain("The Pantry Key (fixture)");
+  const studio = await request.get("/demo/studio.html");
+  expect(studio.status()).toBe(200);
+  expect(await studio.text()).toContain("Studio demo (fixture)");
+  const asset = await request.get("/demo/assets/index-abcdef12.js");
+  expect(asset.headers()["cache-control"]).toContain("immutable");
+  const sw = await request.get("/demo/sw.js");
+  expect(sw.headers()["content-type"]).toContain("javascript");
+  expect(sw.headers()["cache-control"]).toBe("no-cache");
+  const bare = await request.get("/demo", { maxRedirects: 0 });
+  expect(bare.status()).toBe(308);
+  expect(bare.headers().location).toMatch(/\/demo\/$/);
+  expect((await request.get("/demo/nothing.js")).status()).toBe(404);
+});
+
 test("/en redirects to the root", async ({ page }) => {
   const res = await page.goto("/en/play");
   expect(res?.url()).toMatch(/\/play$/);
@@ -63,7 +81,7 @@ test("the play page shows the game behind a still", async ({ page }) => {
   await page.goto("/play");
   await expect(page.getByRole("heading", { level: 1, name: /Play/ })).toBeVisible();
   await page.getByRole("button", { name: /Press play/ }).first().click();
-  await expect(page.locator("iframe[title='The Pantry Key']")).toHaveAttribute("src", /quest-n-click\.github\.io\/play\/\?lang=en/);
+  await expect(page.locator("iframe[title='The Pantry Key']")).toHaveAttribute("src", /\/demo\/\?lang=en$/);
 });
 
 test("a docs page renders the wiki's markers", async ({ page }) => {

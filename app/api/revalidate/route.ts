@@ -1,6 +1,7 @@
 import { timingSafeEqual } from "node:crypto";
 import { revalidateTag } from "next/cache";
 import { NextResponse, type NextRequest } from "next/server";
+import { refreshDemo } from "@/lib/demo/store";
 import { refreshDocs } from "@/lib/docs/store";
 import { clearGithubMemo } from "@/lib/github";
 import { clearMemo } from "@/lib/memo";
@@ -23,10 +24,12 @@ export async function POST(req: NextRequest) {
   clearGithubMemo();
   clearMemo("home:");
   clearMemo("changelog:");
-  try {
-    const result = await refreshDocs();
-    return NextResponse.json({ ok: true, ...result });
-  } catch (e) {
-    return NextResponse.json({ ok: false, error: (e as Error).message }, { status: 502 });
-  }
+  const [docs, demo] = await Promise.allSettled([refreshDocs(), refreshDemo()]);
+  const body = {
+    ok: docs.status === "fulfilled" && demo.status === "fulfilled",
+    changed: (docs.status === "fulfilled" && docs.value.changed) || (demo.status === "fulfilled" && demo.value.changed),
+    source: docs.status === "fulfilled" ? docs.value.source : { error: (docs.reason as Error).message },
+    demo: demo.status === "fulfilled" ? demo.value : { error: (demo.reason as Error).message },
+  };
+  return NextResponse.json(body, { status: body.ok ? 200 : 502 });
 }

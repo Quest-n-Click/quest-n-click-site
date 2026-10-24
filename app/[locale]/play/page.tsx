@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { isLocale, GAME_URL, STUDIO_URL, href, type Locale } from "@/lib/i18n";
+import { demoUrls } from "@/lib/demo/urls";
+import { isLocale, href, type Locale } from "@/lib/i18n";
 import { messages } from "@/messages";
 import { DemoFrame } from "@/components/play/DemoFrame";
+
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -20,6 +23,7 @@ export default async function PlayPage({ params }: { params: Promise<{ locale: s
   if (!isLocale(locale)) notFound();
   const lang = locale as Locale;
   const t = messages[lang];
+  const demo = await demoUrls();
   return (
     <div className="container-site py-12 sm:py-16">
       <header className="prose-site">
@@ -32,8 +36,8 @@ export default async function PlayPage({ params }: { params: Promise<{ locale: s
         <p className="prose-site mt-2 text-ink-2">{t.play.game.text}</p>
         <DemoFrame
           locale={lang}
-          src={`${GAME_URL}?lang=${lang}`}
-          open={GAME_URL}
+          src={`${demo.game}?lang=${lang}`}
+          open={demo.game}
           poster="/gallery/4119-hero.webp"
           ratio="16/9"
           title={t.play.game.title}
@@ -47,8 +51,8 @@ export default async function PlayPage({ params }: { params: Promise<{ locale: s
         <p className="prose-site mt-2 text-ink-2">{t.play.studio.text}</p>
         <DemoFrame
           locale={lang}
-          src={STUDIO_URL}
-          open={STUDIO_URL}
+          src={demo.studio}
+          open={demo.studio}
           poster="/gallery/4119-studio-rooms.webp"
           ratio="16/10"
           title={t.play.studio.title}

@@ -21,6 +21,7 @@ export const SITE_URL = process.env.SITE_URL ?? "https://quest-n-click.cleverapp
 export const ENGINE_REPO = "Quest-n-Click/quest-n-click";
 export const ENGINE_REPO_URL = `https://github.com/${ENGINE_REPO}`;
 export const ENGINE_WIKI_URL = `${ENGINE_REPO_URL}/wiki`;
+/** GitHub Pages, where the demo was played before the site served it (kept as the fallback until a release carries web.tar.gz). */
 export const PAGES_URL = "https://quest-n-click.github.io";
-export const GAME_URL = `${PAGES_URL}/play/`;
-export const STUDIO_URL = `${PAGES_URL}/play/studio.html`;
+export const PAGES_GAME_URL = `${PAGES_URL}/play/`;
+export const PAGES_STUDIO_URL = `${PAGES_URL}/play/studio.html`;

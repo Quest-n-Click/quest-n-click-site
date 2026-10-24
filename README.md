@@ -10,7 +10,10 @@ Nothing of the engine is copied here. The site reads GitHub at run time:
 - `CHANGELOG.md` at the latest tag (`/changelog`);
 - the README's measured figures (`<!-- metric:… -->` markers, "In numbers");
 - the documentation archive `quest-n-click-docs-<version>.tar.gz` of the latest release, or its latest revision
-  (`docs-v<version>-r<n>`), rendered page by page in the site's own design with a search (`/docs`).
+  (`docs-v<version>-r<n>`), rendered page by page in the site's own design with a search (`/docs`);
+- the demo: `quest-n-click-v<version>-web.tar.gz` of the latest release that carries one (from 4.5.2), the game and
+  the Studio's demo built for the base path `/demo/`, checked against the release's `SHA256SUMS` and served at
+  `/demo/` and `/demo/studio.html`. Until a release carries it, `/demo/` says so and the Play page embeds GitHub Pages.
 
 A release of the engine is enough: the release workflow calls `POST /api/revalidate` and the site loads the new
 archive without a redeploy. Once an hour the site also checks on its own.
@@ -34,6 +37,9 @@ Without `QNC_DOCS_SOURCE` the server resolves and downloads the archive itself a
 | `REVALIDATE_SECRET` | the bearer token `POST /api/revalidate` expects |
 | `QNC_DOCS_SOURCE` | a directory holding an extracted documentation archive, instead of GitHub |
 | `QNC_DOCS_CACHE` | where downloaded archives are kept (default `.cache/qnc-docs`) |
+| `QNC_DEMO_SOURCE` | a directory holding an extracted web archive (the game built for `/demo/`), instead of GitHub |
+| `QNC_DEMO_CACHE` | where downloaded web archives are kept (default `.cache/qnc-demo`) |
+| `QNC_DEMO_FALLBACK_URL`, `…_SHA256`, `…_VERSION` | a web archive to serve while no release carries one (a release's always wins) |
 
 ## How it is made
 
@@ -44,6 +50,8 @@ Next.js 16 (App Router, React 19, TypeScript, Tailwind 4), served as a Node appl
 - `lib/docs/`: the documentation store (`resolve.ts` finds the archive, `store.ts` downloads, extracts and serves
   it, `markdown.ts` renders the wiki's Markdown with its own markers: explicit anchors, `applies:` comments,
   `[!GUARANTEE]`, `[!LIMIT]` and `[!MEASURE]` blockquotes, generated regions).
+- `lib/demo/`: the demo store (`store.ts` finds the latest web archive, downloads, checks and serves it) and the
+  route `app/demo/[[...path]]` that serves its files with the right types and caching.
 - `lib/changelog.ts`: `CHANGELOG.md` parsed into versions and sections.
 - `messages/`: the interface texts in both languages. `content/`: the gallery captions and the code excerpts.
 - `scripts/screenshots.mjs`: screenshots of the main pages in both schemes and viewports.
