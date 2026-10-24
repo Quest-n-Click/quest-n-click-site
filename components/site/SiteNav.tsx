@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { ENGINE_REPO_URL, href, type Locale } from "@/lib/i18n";
 import { messages } from "@/messages";
 import { LangSwitch } from "./LangSwitch";
+import { ThemeToggle } from "./ThemeToggle";
 
 /** The main navigation: anchors of the home page, the pages, GitHub and the language. A menu on small screens. */
 export function SiteNav({ locale }: { locale: Locale }) {
@@ -50,8 +51,10 @@ export function SiteNav({ locale }: { locale: Locale }) {
           {t.nav.github} ↗
         </a>
         <LangSwitch locale={locale} />
+        <ThemeToggle locale={locale} />
       </nav>
       <div className="ml-auto flex items-center gap-2 lg:hidden">
+        <ThemeToggle locale={locale} />
         <LangSwitch locale={locale} />
         <button
           ref={button}

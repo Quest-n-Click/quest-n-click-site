@@ -54,7 +54,15 @@ export default async function RootLayout({
   if (!isLocale(locale)) notFound();
   const t = messages[locale as Locale];
   return (
-    <html lang={locale} className={`${sans.variable} ${mono.variable} ${pixel.variable} h-full antialiased`}>
+    <html lang={locale} className={`${sans.variable} ${mono.variable} ${pixel.variable} h-full antialiased`} suppressHydrationWarning>
+      <head>
+        {/* The visitor's theme, applied before the first paint so the page never flashes. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem("qnc-theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}`,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col">
         <a
           href="#main"

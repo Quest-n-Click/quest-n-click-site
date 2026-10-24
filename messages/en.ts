@@ -15,6 +15,7 @@ export const en = {
     closeMenu: "Close the menu",
   },
   switchLang: "Français",
+  theme: { toLight: "Switch to the light theme", toDark: "Switch to the dark theme" },
   skip: "Skip to content",
   footer: {
     formerly: "Formerly web-scumm. Not affiliated with LucasArts; SCUMM is their engine, this one follows its spirit.",
