@@ -1,6 +1,7 @@
 import { timingSafeEqual } from "node:crypto";
 import { revalidateTag } from "next/cache";
 import { NextResponse, type NextRequest } from "next/server";
+import { refreshDemo } from "@/lib/demo/store";
 import { refreshDocs } from "@/lib/docs/store";
 import { clearGithubMemo } from "@/lib/github";
 import { clearMemo } from "@/lib/memo";
@@ -16,7 +17,7 @@ function authorised(req: NextRequest): boolean {
   return a.length === b.length && timingSafeEqual(a, b);
 }
 
-/** Called by the engine's release workflow: re-read GitHub and load a newer documentation archive if there is one. */
+/** Called by the engine's release workflow: re-read GitHub, then load a newer documentation archive and demo if there are. */
 export async function POST(req: NextRequest) {
   if (!authorised(req)) return NextResponse.json({ error: "unauthorised" }, { status: 401 });
   revalidateTag("github", "max");
@@ -25,7 +26,8 @@ export async function POST(req: NextRequest) {
   clearMemo("changelog:");
   try {
     const result = await refreshDocs();
-    return NextResponse.json({ ok: true, ...result });
+    const demo = await refreshDemo();
+    return NextResponse.json({ ok: true, ...result, demo });
   } catch (e) {
     return NextResponse.json({ ok: false, error: (e as Error).message }, { status: 502 });
   }

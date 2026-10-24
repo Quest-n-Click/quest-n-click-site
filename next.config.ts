@@ -3,6 +3,9 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // The classic data model: fetch() with `next.revalidate` for GitHub, force-dynamic for the docs store.
   cacheComponents: false,
+  // The demo lives at /demo/ (its service worker's scope): Next must not strip that slash. proxy.ts keeps the
+  // trailing-slash redirect for every other page.
+  skipTrailingSlashRedirect: true,
   turbopack: {
     rules: {
       "*.css": {

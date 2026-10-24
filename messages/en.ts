@@ -102,7 +102,7 @@ export const en = {
   },
   play: {
     title: "Play the demos",
-    lead: "The sample game and the Studio, as they are published on GitHub Pages. They load when you press play.",
+    lead: "The sample game and the Studio, as the latest release of the engine builds them. They load when you press play.",
     game: {
       title: "The Pantry Key",
       text: "A tiny point-and-click adventure: Pixel the cat wants the sardines. Nine verbs, a bag, Grandma's topics, a world map, minigames and an ending that remembers what you guessed.",

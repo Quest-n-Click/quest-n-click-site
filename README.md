@@ -12,8 +12,12 @@ Nothing of the engine is copied here. The site reads GitHub at run time:
 - the documentation archive `quest-n-click-docs-<version>.tar.gz` of the latest release, or its latest revision
   (`docs-v<version>-r<n>`), rendered page by page in the site's own design with a search (`/docs`).
 
+- the demo, `quest-n-click-v<version>-web.tar.gz` of the latest release that carries one (from 4.5.2): the sample
+  game and the Studio demo built for `/demo/`, checked against the release's `SHA256SUMS`, served at `/demo/`
+  and embedded by `/play`.
+
 A release of the engine is enough: the release workflow calls `POST /api/revalidate` and the site loads the new
-archive without a redeploy. Once an hour the site also checks on its own.
+archives without a redeploy. Once an hour the site also checks on its own.
 
 ## Run it
 
@@ -34,6 +38,8 @@ Without `QNC_DOCS_SOURCE` the server resolves and downloads the archive itself a
 | `REVALIDATE_SECRET` | the bearer token `POST /api/revalidate` expects |
 | `QNC_DOCS_SOURCE` | a directory holding an extracted documentation archive, instead of GitHub |
 | `QNC_DOCS_CACHE` | where downloaded archives are kept (default `.cache/qnc-docs`) |
+| `QNC_DEMO_SOURCE` | a directory holding an extracted web archive (the game built for `/demo/`), instead of GitHub |
+| `QNC_DEMO_CACHE` | where the downloaded demo is kept (default `.cache/qnc-demo`) |
 
 ## How it is made
 

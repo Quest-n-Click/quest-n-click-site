@@ -1,7 +1,7 @@
 import "server-only";
 import { z } from "zod";
 import { clearMemo, memo } from "./memo";
-import { ENGINE_REPO, PAGES_URL } from "./i18n";
+import { ENGINE_REPO, PUBLICATION_URL } from "./i18n";
 
 const API = "https://api.github.com";
 const HOUR = 3600;
@@ -130,11 +130,11 @@ export function getRepoStats(): Promise<RepoStats | null> {
   return withLastGood("repo", () => gh(`/repos/${ENGINE_REPO}`, Repo));
 }
 
-/** The publication record of the documentation, when Pages serves it. */
+/** The publication record of the documentation, once the engine's docs-publish has written it. */
 export function getDocsPublication(): Promise<DocsPublication | null> {
   return withLastGood("publication", async () => {
     return memo("raw:publication", HOUR * 1000, async () => {
-      const res = await raw(`${PAGES_URL}/docs/publication.json`);
+      const res = await raw(PUBLICATION_URL);
       if (res.status === 404) throw new Error("publication.json is not published yet");
       if (!res.ok) throw new Error(`publication.json → ${res.status}`);
       return DocsPublication.parse(await res.json());
