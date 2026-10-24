@@ -32,7 +32,14 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       locale: locale === "fr" ? "fr_FR" : "en_US",
       images: [{ url: "/brand/social.jpg", width: 1280, height: 640 }],
     },
-    icons: { icon: "/brand/icon-512.png", apple: "/brand/icon-512.png" },
+    icons: {
+      icon: [
+        { url: "/brand/favicon-32.png", sizes: "32x32", type: "image/png" },
+        { url: "/brand/icon-192.png", sizes: "192x192", type: "image/png" },
+        { url: "/brand/icon-512.png", sizes: "512x512", type: "image/png" },
+      ],
+      apple: "/brand/apple-touch-icon.png",
+    },
   };
 }
 
