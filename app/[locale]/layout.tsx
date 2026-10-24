@@ -22,13 +22,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     metadataBase: new URL(SITE_URL),
     title: { default: `${t.siteName} · ${t.tagline}`, template: `%s · ${t.siteName}` },
-    description: t.home.heroLead,
+    description: t.home.lead,
     alternates: { canonical: href(locale, "/"), languages: { en: "/", fr: "/fr" } },
     openGraph: {
       type: "website",
       siteName: t.siteName,
       title: `${t.siteName} · ${t.tagline}`,
-      description: t.home.heroLead,
+      description: t.home.lead,
       locale: locale === "fr" ? "fr_FR" : "en_US",
       images: [{ url: "/brand/social.jpg", width: 1280, height: 640 }],
     },

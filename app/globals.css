@@ -1,62 +1,67 @@
 @import "tailwindcss";
 
-/* Tokens. The palette is the logo's: the orange of "quest", the cyan of "click", the night of the game's backdrop. */
+/*
+ * Tokens. Night blue by default, as the game's own backdrop; a light scheme when the visitor asks for it.
+ * Honey for actions and markers, a soft green for the assistant, the logo's cyan kept for small accents.
+ */
 :root {
-  --paper: #f5f7fc;
-  --paper-2: #ffffff;
-  --paper-3: #e9edf7;
-  --ink: #141a2e;
-  --ink-2: #4a5272;
-  --ink-3: #8089a8;
-  --line: #cfd6e8;
-  --sun: #f08a1d;
-  --sun-deep: #c96a05;
-  --sky: #1fa8e0;
-  --sky-deep: #157fab;
-  --grass: #3fa65b;
+  --paper: #111421;
+  --paper-2: #191e2e;
+  --paper-3: #232a3f;
+  --ink: #e9e7e0;
+  --ink-2: #b4b8c6;
+  --ink-3: #8f98ab;
+  --line: #2f3650;
+  --sun: #e9be72;
+  --sun-deep: #c99a45;
+  --sun-ink: #222536;
+  --sky: #6cc8f0;
+  --sky-deep: #8fd4f5;
+  --grass: #9ac6ba;
   --rose: #e8557a;
-  --lilac: #8d6bdc;
-  --code-bg: #0f1326;
-  --shadow: var(--ink);
+  --lilac: #a98de8;
+  --code-bg: #0b0e1a;
+  --shadow: #07090f;
   --radius: 6px;
-  color-scheme: light;
+  color-scheme: dark;
 }
-
-:root:not([data-theme="light"]) {
-  @media (prefers-color-scheme: dark) {
-    --paper: #0d1022;
-    --paper-2: #141a33;
-    --paper-3: #1b2240;
-    --ink: #eaeefb;
-    --ink-2: #b4bcd8;
-    --ink-3: #7e88ab;
-    --line: #2b3458;
-    --sun: #ffa23a;
-    --sun-deep: #f08a1d;
-    --sky: #4cc2f5;
-    --sky-deep: #1fa8e0;
-    --grass: #5fc77a;
-    --code-bg: #090b18;
-    --shadow: #000000;
-    color-scheme: dark;
+:root:not([data-theme="dark"]) {
+  @media (prefers-color-scheme: light) {
+    --paper: #f5f3ec;
+    --paper-2: #ffffff;
+    --paper-3: #ebe7dc;
+    --ink: #1c2130;
+    --ink-2: #4e5469;
+    --ink-3: #7b8196;
+    --line: #d6d1c3;
+    --sun: #d9a650;
+    --sun-deep: #a87a2a;
+    --sun-ink: #1c2130;
+    --sky: #1f8fc0;
+    --sky-deep: #176f96;
+    --grass: #3e8d78;
+    --code-bg: #141a2b;
+    --shadow: #1c2130;
+    color-scheme: light;
   }
 }
-:root[data-theme="dark"] {
-  --paper: #0d1022;
-  --paper-2: #141a33;
-  --paper-3: #1b2240;
-  --ink: #eaeefb;
-  --ink-2: #b4bcd8;
-  --ink-3: #7e88ab;
-  --line: #2b3458;
-  --sun: #ffa23a;
-  --sun-deep: #f08a1d;
-  --sky: #4cc2f5;
-  --sky-deep: #1fa8e0;
-  --grass: #5fc77a;
-  --code-bg: #090b18;
-  --shadow: #000000;
-  color-scheme: dark;
+:root[data-theme="light"] {
+  --paper: #f5f3ec;
+  --paper-2: #ffffff;
+  --paper-3: #ebe7dc;
+  --ink: #1c2130;
+  --ink-2: #4e5469;
+  --ink-3: #7b8196;
+  --line: #d6d1c3;
+  --sun: #d9a650;
+  --sun-deep: #a87a2a;
+  --sun-ink: #1c2130;
+  --sky: #1f8fc0;
+  --sky-deep: #176f96;
+  --grass: #3e8d78;
+  --code-bg: #141a2b;
+  --shadow: #1c2130;
+  color-scheme: light;
 }
 
 @theme inline {
@@ -69,6 +74,7 @@
   --color-line: var(--line);
   --color-sun: var(--sun);
   --color-sun-deep: var(--sun-deep);
+  --color-sun-ink: var(--sun-ink);
   --color-sky: var(--sky);
   --color-sky-deep: var(--sky-deep);
   --color-grass: var(--grass);
@@ -85,81 +91,106 @@ html {
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   -webkit-text-size-adjust: 100%;
   scroll-padding-top: 5rem;
+  scroll-behavior: smooth;
 }
 body {
   background: var(--paper);
   color: var(--ink);
-  line-height: 1.55;
+  line-height: 1.6;
   overflow-x: clip;
 }
 ::selection {
   background: var(--sun);
-  color: #140a00;
+  color: var(--sun-ink);
 }
 :focus-visible {
-  outline: 3px solid var(--sky);
-  outline-offset: 2px;
+  outline: 3px solid var(--sun);
+  outline-offset: 3px;
 }
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   *,
   *::before,
   *::after {
     animation: none !important;
     transition: none !important;
-    scroll-behavior: auto !important;
   }
 }
 
-/* The site's one visual signature: a hard, unblurred offset shadow, as a sprite drops on a backdrop. */
-.hard {
-  border: 2px solid var(--ink);
-  box-shadow: 6px 6px 0 0 var(--shadow);
-}
-.hard-sun {
-  border: 2px solid var(--ink);
-  box-shadow: 6px 6px 0 0 var(--sun);
-}
-.hard-sky {
-  border: 2px solid var(--ink);
-  box-shadow: 6px 6px 0 0 var(--sky);
-}
+/* The pixel face: the brand and short labels only, never below 11px. */
 .pixel {
   font-family: var(--font-pixel), monospace;
   font-size: 0.6875rem;
-  line-height: 1.6;
-  letter-spacing: 0.02em;
-  image-rendering: pixelated;
+  line-height: 1.8;
+  letter-spacing: 0.01em;
 }
+.eyebrow {
+  font-family: var(--font-pixel), monospace;
+  font-size: 0.6875rem;
+  line-height: 1.8;
+  color: var(--sun);
+}
+
+/* Window frames: a thin border, a slight relief, a bar like a game window. */
+.frame {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper-2);
+  overflow: hidden;
+}
+.frame-sun {
+  box-shadow: 5px 6px 0 var(--sun);
+}
+.frame-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 2.2rem;
+  padding: 0.5rem 0.85rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--paper-3);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  color: var(--ink-2);
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.7rem 1.1rem;
-  border: 2px solid var(--ink);
-  border-radius: var(--radius);
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3rem;
+  padding: 0.75rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
   font-weight: 600;
+  font-size: 0.95rem;
   background: var(--paper-2);
   color: var(--ink);
-  box-shadow: 4px 4px 0 0 var(--shadow);
-  transition: transform 80ms ease, box-shadow 80ms ease;
+  transition: background-color 120ms ease, border-color 120ms ease, transform 80ms ease;
 }
 .btn:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: 5px 5px 0 0 var(--shadow);
+  border-color: var(--sun);
 }
 .btn:active {
-  transform: translate(3px, 3px);
-  box-shadow: 1px 1px 0 0 var(--shadow);
+  transform: translateY(1px);
 }
 .btn-sun {
   background: var(--sun);
-  color: #140a00;
-  border-color: #140a00;
+  color: var(--sun-ink);
+  border-color: var(--sun);
+  box-shadow: 0 3px 0 var(--sun-deep);
+}
+.btn-sun:hover {
+  background: #f3d191;
+  border-color: #f3d191;
 }
 .btn-sky {
   background: var(--sky);
   color: #04131c;
-  border-color: #04131c;
+  border-color: var(--sky);
 }
 .container-site {
   width: 100%;
@@ -173,7 +204,36 @@ body {
   }
 }
 .prose-site {
-  max-width: 72ch;
+  max-width: 66ch;
+}
+.link {
+  color: var(--sun);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+.link:hover {
+  color: var(--ink);
+}
+
+/* Tabs that stay accessible: an explicit selection, arrows handled by the component. */
+.tab {
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ink-2);
+  padding: 0.5rem 0.8rem;
+  font-size: 0.9rem;
+  min-height: 2.4rem;
+}
+.tab[aria-selected="true"] {
+  color: var(--ink);
+  border-color: var(--sun);
+  background: var(--paper-3);
+}
+.tab-grass[aria-selected="true"] {
+  border-color: var(--grass);
+  color: var(--ink);
 }
 
 /* Documentation pages: rendered from the wiki's Markdown. */
@@ -190,7 +250,7 @@ body {
   line-height: 1.25;
   margin-top: 2.75rem;
   padding-top: 0.75rem;
-  border-top: 2px solid var(--line);
+  border-top: 1px solid var(--line);
   scroll-margin-top: 5rem;
 }
 .doc h3 {
@@ -204,13 +264,13 @@ body {
   margin-top: 1.5rem;
 }
 .doc a {
-  color: var(--sky-deep);
+  color: var(--sun);
   text-decoration: underline;
-  text-decoration-thickness: 1.5px;
+  text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
 .doc a:hover {
-  color: var(--sun-deep);
+  color: var(--ink);
 }
 .doc ul {
   list-style: square;
@@ -237,13 +297,12 @@ body {
 .doc pre {
   background: var(--code-bg);
   color: #e6e9f2;
-  border: 2px solid var(--ink);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 1rem 1.1rem;
   overflow-x: auto;
   font-size: 0.875rem;
   line-height: 1.55;
-  box-shadow: 4px 4px 0 0 var(--shadow);
 }
 .doc pre code {
   background: none;
@@ -257,7 +316,7 @@ body {
   background-color: var(--code-bg) !important;
 }
 .doc blockquote {
-  border-left: 4px solid var(--line);
+  border-left: 3px solid var(--line);
   padding-left: 1rem;
   color: var(--ink-2);
 }
@@ -281,8 +340,8 @@ body {
 .doc img {
   max-width: 100%;
   height: auto;
-  border: 2px solid var(--ink);
-  box-shadow: 6px 6px 0 0 var(--shadow);
+  border: 1px solid var(--line);
+  border-radius: 4px;
   margin-top: 1.5rem;
 }
 .doc img + em,
@@ -294,11 +353,11 @@ body {
 }
 .doc hr {
   border: 0;
-  border-top: 2px solid var(--line);
+  border-top: 1px solid var(--line);
   margin-block: 2rem;
 }
 .doc details {
-  border: 2px solid var(--line);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 0.5rem 1rem;
 }

@@ -33,7 +33,7 @@ export default async function DocsHome({ params }: { params: Promise<{ locale: s
       <p className="prose-site mt-3 text-lg text-ink-2">{t.lead}</p>
       <ul className="mt-8 grid gap-4 sm:grid-cols-2">
         {starts.map((p, i) => (
-          <li key={p.id} className="hard rounded-[4px] bg-paper-2 p-4">
+          <li key={p.id} className="frame p-4">
             <p className="pixel text-ink-3">{t.domains[p.domain] ?? p.domain}</p>
             <Link href={`${href(lang, "/docs")}/${p.id}`} className="mt-1 block text-lg font-bold hover:text-sky-deep">{p.title[lang]}</Link>
             <p className="mt-1 text-sm text-ink-2">{excerpts[i]}</p>

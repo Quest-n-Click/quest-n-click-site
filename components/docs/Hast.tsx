@@ -33,7 +33,7 @@ function componentsFor(locale: Locale): Components {
       return (
         <aside data-claim={kind} data-claim-id={id} className={`my-5 rounded-[4px] border-2 ${tone} bg-paper-2 p-4 shadow-[4px_4px_0_0_var(--line)]`}>
           <p className="pixel mb-2 flex flex-wrap items-center gap-2 text-ink-2">
-            <span className={kind === "guarantee" ? "text-grass" : kind === "limit" ? "text-rose" : "text-sky-deep"}>{t.claim[kind]}</span>
+            <span className={kind === "guarantee" ? "text-grass" : kind === "limit" ? "text-rose" : "text-sky"}>{t.claim[kind]}</span>
             <code className="!bg-transparent !p-0 !text-[0.7rem] font-mono text-ink-3">{id}</code>
           </p>
           <div className="[&>p]:m-0 [&>p+p]:mt-2">{children}</div>
