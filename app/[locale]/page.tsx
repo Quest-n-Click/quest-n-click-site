@@ -175,7 +175,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             </div>
           </div>
           <div>
-            <Image src="/brand/logo-768.png" alt={`quest'n'click · ${t.tagline}`} width={768} height={512} sizes="(min-width: 1024px) 40vw, 90vw" className="mx-auto w-full max-w-md" />
+            <Image src="/brand/logo-768.png" alt={`quest'n'click · ${t.tagline}`} width={768} height={512} sizes="(min-width: 1024px) 28vw, 70vw" className="mx-auto w-full max-w-[18rem] sm:max-w-xs" />
             <details className="group mt-6 border-t border-line">
               <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between font-medium [&::-webkit-details-marker]:hidden">
                 {h.techSummary} <span aria-hidden className="text-xl text-ink-3 transition-transform group-open:rotate-45">+</span>
