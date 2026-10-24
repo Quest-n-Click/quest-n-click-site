@@ -18,6 +18,6 @@ export default defineConfig({
         url: `http://localhost:${PORT}/`,
         reuseExistingServer: !process.env.CI,
         timeout: 120_000,
-        env: { PORT: String(PORT) },
+        env: { PORT: String(PORT), QNC_DEMO_SOURCE: process.env.QNC_DEMO_SOURCE ?? "tests/fixtures/demo" },
       },
 });

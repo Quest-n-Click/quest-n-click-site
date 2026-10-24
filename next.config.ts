@@ -3,6 +3,8 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // The classic data model: fetch() with `next.revalidate` for GitHub, force-dynamic for the docs store.
   cacheComponents: false,
+  // `/demo/` keeps its slash: the game is built for that base and its service worker is scoped there.
+  skipTrailingSlashRedirect: true,
   turbopack: {
     rules: {
       "*.css": {
