@@ -9,7 +9,7 @@ export function Footer({ locale }: { locale: Locale }) {
     <footer className="mt-20 border-t border-line">
       <div className="container-site grid gap-8 py-10 sm:grid-cols-[1fr_auto] sm:items-start">
         <div>
-          <Image src="/brand/wordmark.png" alt="quest'n'click" width={735} height={159} className="h-7 w-auto" sizes="180px" />
+          <Image src="/brand/wordmark.png" alt="quest'n'click" width={1084} height={285} className="h-9 w-auto" sizes="200px" />
           <p className="mt-3 text-sm text-ink-3">{t.footer.license}</p>
           <p className="mt-1 max-w-[60ch] text-sm text-ink-3">{t.footer.formerly}</p>
           <p className="mt-1 text-sm text-ink-3">{t.footer.made}</p>
