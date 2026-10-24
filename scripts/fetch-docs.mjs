@@ -9,7 +9,7 @@ import { Readable, Transform } from "node:stream";
 import { pipeline } from "node:stream/promises";
 import { x } from "tar";
 
-const REPO = "wanoo/quest-n-click";
+const REPO = "Quest-n-Click/quest-n-click";
 const headers = { Accept: "application/vnd.github+json", "User-Agent": "quest-n-click-site" };
 if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
 
